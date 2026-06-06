@@ -8,40 +8,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap');
         
         * {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
         
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            letter-spacing: -0.5px;
-        }
-        
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             background-attachment: fixed;
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                repeating-linear-gradient(
-                    0deg,
-                    rgba(255, 255, 255, 0.03) 0px,
-                    transparent 1px,
-                    transparent 2px,
-                    rgba(255, 255, 255, 0.03) 3px
-                );
-            pointer-events: none;
-            z-index: 0;
         }
         
         .glass {
@@ -605,6 +579,7 @@
             console.log('Sending email with params:', templateParams);
             console.log('Service ID:', 'service_c04ftcr');
             console.log('Template ID:', 'template_d7vrqey');
+        });
             
     </script>
 
