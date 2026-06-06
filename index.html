@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suyash Verma - AI Developer & Data Scientist</title>
+    <meta name="description" content="AI Developer specializing in LLMs, MLOps, and Data Engineering. MS in Data Science at Arizona State University.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -0.5px;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 0.03) 0px,
+                    transparent 1px,
+                    transparent 2px,
+                    rgba(255, 255, 255, 0.03) 3px
+                );
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .glass-dark {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .gradient-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .gradient-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .float {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+        }
+        
+        @keyframes particleFloat {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(20px); opacity: 0; }
+        }
+        
+        .typing-dot {
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 60%, 100% { opacity: 0.3; }
+            30% { opacity: 1; }
+        }
+        
+        .skill-badge {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-badge:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            transform: scale(1.05);
+        }
+        
+        /* Section divider */
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
+            margin: 3rem 0;
+        }
+        
+        /* Elegant heading styles */
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+        }
+        
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+        }
+        
+        /* Improved badge styling */
+        .badge-pill {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .greeting-text {
+            display: inline;
+            border-right: 3px solid white;
+            animation: typing 3s steps(6, end), blink 0.7s infinite;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        @keyframes typing {
+            0% { width: 0; }
+            100% { width: 4.3em; }
+        }
+
+        .letter-by-letter {
+            animation: letterType 3s steps(6, end) forwards;
+        }
+
+        @keyframes letterType {
+            0% { width: 0; }
+            16.67% { width: 0.7em; }
+            33.33% { width: 1.4em; }
+            50% { width: 2.1em; }
+            66.67% { width: 2.8em; }
+            83.33% { width: 3.5em; }
+            100% { width: 4.3em; }
+        }
+
+        @keyframes blink {
+            0%, 50% { border-right-color: white; }
+            51%, 100% { border-right-color: transparent; }
+        }
+    </style>
+    <script src="https://cdn.emailjs.com/sdk/2.12.0/email.min.js"></script>
+</head>
+<body class="text-gray-900 antialiased relative overflow-x-hidden">
+    <!-- Floating Particles Background -->
+    <div id="particles-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass shadow-lg">
+        <div class="container mx-auto flex h-16 items-center px-4 max-w-7xl justify-between">
+            <div class="flex items-center">
+                <a class="flex items-center space-x-2 gradient-text" href="#home">
+                    <span class="font-bold text-lg">SV</span>
+                </a>
+            </div>
+            <nav class="hidden md:flex items-center space-x-6">
+                <a class="font-medium text-gray-700 hover:text-purple-600 transition-colors text-sm" href="#about">About</a>
+                <a class="font-medium text-gray-700 hover:text-purple-600 transition-colors text-sm" href="#experience">Experience</a>
+                <a class="font-medium text-gray-700 hover:text-purple-600 transition-colors text-sm" href="#projects">Projects</a>
+                <a class="font-medium text-gray-700 hover:text-purple-600 transition-colors text-sm" href="#skills">Skills</a>
+                <a class="font-medium text-gray-700 hover:text-purple-600 transition-colors text-sm" href="#contact">Contact</a>
+            </nav>
+            <div class="flex items-center gap-3">
+                <a href="https://github.com/Suyash123456789" target="_blank" class="px-4 py-2 text-sm rounded-lg glass-dark text-white hover:bg-white/20 transition-all">
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative py-20 md:py-32 overflow-hidden">
+        <div class="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
+            <div class="flex flex-col items-center space-y-6 text-center">
+                <div class="inline-block px-4 py-2 rounded-full glass-dark text-white text-sm font-semibold mb-4 float">
+                    ✨ Software Engineer & AI Developer
+                </div>
+                <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4">
+                    Hi, I'm <span class="greeting-text"><span class="letter">S</span><span class="letter">u</span><span class="letter">y</span><span class="letter">a</span><span class="letter">s</span><span class="letter">h</span></span>
+                </h1>
+                <p class="text-xl md:text-2xl text-white/90 max-w-3xl leading-relaxed">
+                    Software Engineer focused on building scalable web, backend, cloud, and AI-powered systems using LLMs, MLOps, APIs, and production-ready deployment workflows.
+                </p>
+                
+                <div class="flex flex-wrap justify-center gap-6 mt-12">
+                    <div class="glass px-8 py-6 rounded-2xl shadow-2xl gradient-hover">
+                        <div class="text-4xl font-black gradient-text" id="stat-projects">0</div>
+                        <div class="text-sm font-semibold text-gray-600 mt-1">📁 Projects</div>
+                    </div>
+                    <div class="glass px-8 py-6 rounded-2xl shadow-2xl gradient-hover">
+                        <div class="text-4xl font-black gradient-text" id="stat-stars">0</div>
+                        <div class="text-sm font-semibold text-gray-600 mt-1">⭐ Stars</div>
+                    </div>
+                    <div class="glass px-8 py-6 rounded-2xl shadow-2xl gradient-hover">
+                        <div class="text-4xl font-black gradient-text" id="stat-langs">0</div>
+                        <div class="text-sm font-semibold text-gray-600 mt-1">💻 Languages</div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-wrap gap-4 mt-12">
+                    <a href="#projects" class="px-8 py-4 gradient-bg text-white font-bold rounded-xl shadow-2xl hover:shadow-purple-500/50 hover:scale-105 transition-all">
+                        🚀 Explore Projects
+                    </a>
+                    <a href="#contact" class="px-8 py-4 glass font-bold rounded-xl shadow-2xl hover:scale-105 transition-all">
+                        💬 Get in Touch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 relative">
+        <div class="container mx-auto px-4 md:px-6 max-w-7xl">
+            <h2 class="text-5xl md:text-6xl font-black text-center text-white mb-8">
+                About Me
+            </h2>
+            <p class="text-lg text-white/90 text-center max-w-3xl mx-auto mb-16 leading-relaxed">
+                Passionate software engineer with expertise in building intelligent systems that make a difference
+            </p>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover fade-in">
+                    <h3 class="text-2xl font-bold gradient-text mb-6 flex items-center gap-3">
+                        <span class="text-3xl">🎓</span> Education
+                    </h3>
+                    <div class="space-y-6">
+                        <div class="border-l-4 border-purple-500 pl-4">
+                            <p class="font-bold text-lg">Arizona State University</p>
+                            <p class="text-gray-600">MS, Data Science, Analytics & Engineering</p>
+                            <p class="text-sm text-purple-600 font-semibold mt-1">Aug 2024 - May 2026</p>
+                        </div>
+                        <div class="border-l-4 border-purple-400 pl-4">
+                            <p class="font-bold text-lg">University of Mumbai</p>
+                            <p class="text-gray-600">B.E., Information Technology</p>
+                            <p class="text-sm text-purple-600 font-semibold mt-1">Aug 2020 - Jun 2024</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover fade-in">
+                    <h3 class="text-2xl font-bold gradient-text mb-6 flex items-center gap-3">
+                        <span class="text-3xl">📧</span> Contact Info
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-purple-50 transition-all">
+                            <span class="text-2xl">✉️</span>
+                            <a href="mailto:suyashverma61@gmail.com" class="hover:text-purple-600 font-medium">suyashverma61@gmail.com</a>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-purple-50 transition-all">
+                            <span class="text-2xl">📱</span>
+                            <span class="font-medium">+1-623-272-5289</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-purple-50 transition-all">
+                            <span class="text-2xl">📍</span>
+                            <span class="font-medium">Tempe, AZ, USA</span>
+                        </div>
+                        <div class="flex gap-3 mt-6 pt-4 border-t">
+                            <a href="https://github.com/Suyash123456789" target="_blank" class="flex-1 px-4 py-3 gradient-bg text-white font-bold rounded-lg text-center hover:shadow-lg transition-all">
+                                GitHub
+                            </a>
+                            <a href="https://www.linkedin.com/in/suyashverma17/" target="_blank" class="flex-1 px-4 py-3 gradient-bg text-white font-bold rounded-lg text-center hover:shadow-lg transition-all">
+                                LinkedIn
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24">
+        <div class="container mx-auto px-4 md:px-6 max-w-7xl">
+            <h2 class="text-5xl md:text-6xl font-black text-center text-white mb-16">
+                Experience
+            </h2>
+            
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover fade-in">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Software Developer Intern</h3>
+                        <p class="text-xl font-semibold text-purple-600 mb-2">EasyBee AI, INC.</p>
+                        <p class="text-lg font-semibold text-purple-600">Jun 2025 – Aug 2025</p>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex gap-3 items-start">
+                            <span class="text-2xl">🚀</span>
+                            <span class="text-gray-900">Reduced AI agent response latency by <strong>50%</strong> by implementing semantic caching and optimizing vector retrieval workflows.</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <span class="text-2xl">💻</span>
+                            <span class="text-gray-900">Built a self-serve <strong>Admin Dashboard</strong> using <strong>React, TypeScript, and REST APIs</strong>, enabling knowledge-base management without engineering support.</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <span class="text-2xl">📊</span>
+                            <span class="text-gray-900">Integrated structured logging, analytics, and performance monitoring, reducing customer support load by <strong>40%</strong>.</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover fade-in">
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Software Engineer Intern</h3>
+                        <p class="text-xl font-semibold text-purple-600 mb-2">CloudPlay Solutions</p>
+                        <p class="text-lg font-semibold text-purple-600">Oct 2023 – Mar 2024</p>
+                    </div>
+                    <ul class="space-y-3">
+                        <li class="flex gap-3 items-start">
+                            <span class="text-2xl">🤖</span>
+                            <span class="text-gray-900">Developed a RAG-based customer support chatbot that automated <strong>80%</strong> of real-time customer inquiries.</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <span class="text-2xl">📈</span>
+                            <span class="text-gray-900">Built an LLM-powered reporting system using persisted datasets, reducing manual reporting workload by <strong>50%</strong>.</span>
+                        </li>
+                        <li class="flex gap-3 items-start">
+                            <span class="text-2xl">🔍</span>
+                            <span class="text-gray-900">Improved backend reliability by adding health checks, deterministic service startup, and rollback-safe deployment workflows.</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24">
+        <div class="container mx-auto px-4 md:px-6 max-w-7xl">
+            <h2 class="text-5xl md:text-6xl font-black text-center text-white mb-6">
+                Projects
+            </h2>
+            <p class="text-xl text-white/90 text-center mb-12">
+                Explore <span id="total-projects" class="font-bold gradient-text bg-white px-3 py-1 rounded-lg">0</span> projects from GitHub
+            </p>
+            
+            <div class="flex flex-wrap gap-3 justify-center mb-12" id="project-tabs"></div>
+            
+            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3" id="projects-grid">
+                <div class="col-span-full flex flex-col items-center justify-center py-12">
+                    <div class="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mb-4"></div>
+                    <p class="text-white text-lg font-semibold">Loading awesome projects from GitHub...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24">
+        <div class="container mx-auto px-4 md:px-6 max-w-7xl">
+            <h2 class="text-5xl md:text-6xl font-black text-center text-white mb-6">
+                Skills
+            </h2>
+            
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover">
+                    <h3 class="text-2xl font-bold gradient-text mb-4 flex items-center gap-2">
+                        <span>🤖</span> AI & ML
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">LLMs</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">RAG</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">Langchain</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">Langgraph</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">OpenAI API</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">NLP</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">MLOps</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">Streamlit</span>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover">
+                    <h3 class="text-2xl font-bold gradient-text mb-4 flex items-center gap-2">
+                        <span>💾</span> Databases
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">Pinecone</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">ChromaDB</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">Vector Search</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">FAISS</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">MongoDB</span>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover">
+                    <h3 class="text-2xl font-bold gradient-text mb-4 flex items-center gap-2">
+                        <span>☁️</span> Cloud & DevOps
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">Docker</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">Kubernetes</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">AWS EC2</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">AWS S3</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">Azure</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">CI/CD</span>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover">
+                    <h3 class="text-2xl font-bold gradient-text mb-4 flex items-center gap-2">
+                        <span>💻</span> Programming
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">Python</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">SQL</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">Apache Spark</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">TypeScript</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">React</span>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover">
+                    <h3 class="text-2xl font-bold gradient-text mb-4 flex items-center gap-2">
+                        <span>📊</span> Visualization
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">Tableau</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">PowerBI</span>
+                    </div>
+                </div>
+                
+                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover">
+                    <h3 class="text-2xl font-bold gradient-text mb-4 flex items-center gap-2">
+                        <span>📚</span> Libraries
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">TensorFlow</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">Keras</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">PyTorch</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">Hugging Face</span>
+                        <span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">Scikit-learn</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24">
+        <div class="container mx-auto px-4 md:px-6 max-w-7xl">
+            <h2 class="text-5xl md:text-6xl font-black text-center text-white mb-6">
+                Contact
+            </h2>
+            <p class="text-xl text-white/90 text-center mb-12 max-w-2xl mx-auto">
+                Interested in collaborating or discussing AI/ML opportunities? Feel free to reach out!
+            </p>
+            
+            <div class="max-w-2xl mx-auto glass rounded-2xl p-12 shadow-2xl">
+                <!-- Contact Form with Formspree (No Redirect) -->
+                <form id="contactForm" class="mb-12">
+                    <div class="mb-6">
+                        <label for="subject" class="block text-gray-800 font-bold mb-3">Subject</label>
+                        <input 
+                            type="text" 
+                            id="subject" 
+                            name="subject" 
+                            required
+                            placeholder="What is this about?"
+                            class="w-full px-4 py-3 border-2 border-purple-300 rounded-lg focus:outline-none focus:border-purple-600 text-gray-800"
+                        >
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="email" class="block text-gray-800 font-bold mb-3">Your Email</label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            required
+                            placeholder="your@email.com"
+                            class="w-full px-4 py-3 border-2 border-purple-300 rounded-lg focus:outline-none focus:border-purple-600 text-gray-800"
+                        >
+                    </div>
+                    
+                    <div class="mb-8">
+                        <label for="message" class="block text-gray-800 font-bold mb-3">Message</label>
+                        <textarea 
+                            id="message" 
+                            name="message" 
+                            required
+                            placeholder="Your message here..."
+                            rows="5"
+                            class="w-full px-4 py-3 border-2 border-purple-300 rounded-lg focus:outline-none focus:border-purple-600 text-gray-800 resize-none"
+                        ></textarea>
+                    </div>
+                    
+                    <button 
+                        type="submit"
+                        id="submitBtn"
+                        class="w-full px-8 py-4 gradient-bg text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all"
+                    >
+                        Send Message ✉️
+                    </button>
+                    <p id="formMessage" class="text-center mt-4 text-sm font-semibold hidden"></p>
+                </form>
+
+                <div class="border-t border-gray-200 pt-8">
+                    <p class="text-center text-gray-700 mb-8 font-bold text-lg">Or reach out directly:</p>
+                    <div class="flex flex-wrap gap-6 justify-center mb-8">
+                        <a href="https://www.linkedin.com/in/suyashverma17/" target="_blank" class="px-8 py-4 gradient-bg text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                            LinkedIn
+                        </a>
+                        <a href="https://github.com/Suyash123456789" target="_blank" class="px-8 py-4 gradient-bg text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all flex items-center gap-2">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                            GitHub
+                        </a>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 text-center">
+                        <div class="p-4 bg-purple-50 rounded-xl">
+                            <p class="text-sm font-bold text-gray-700 mb-1">📧 Email</p>
+                            <a href="mailto:suyashverma61@gmail.com" class="text-purple-600 font-semibold hover:underline">suyashverma61@gmail.com</a>
+                        </div>
+                        <div class="p-4 bg-purple-50 rounded-xl">
+                            <p class="text-sm font-bold text-gray-700 mb-1">📱 Phone</p>
+                            <p class="text-purple-600 font-semibold">+1-623-272-5289</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const subject = document.getElementById('subject').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const formMessage = document.getElementById('formMessage');
+            const submitSpinner = document.getElementById('submitSpinner');
+            const submitBtn = this.querySelector('button[type="submit"]');
+            
+            // Disable button during submission
+            submitBtn.disabled = true;
+            submitSpinner.classList.remove('hidden');
+            
+            const templateParams = {
+                title: subject,
+                name: email,
+                message: message,
+                email: email
+            };
+            
+            console.log('Sending email with params:', templateParams);
+            console.log('Service ID:', 'service_c04ftcr');
+            console.log('Template ID:', 'template_d7vrqey');
+            
+    </script>
+
+    <!-- Contact Form Handler (No Redirect) -->
+    <script>
+        // Wait for DOM to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const subject = document.getElementById('subject').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
+                    const formMessage = document.getElementById('formMessage');
+                    const submitBtn = document.getElementById('submitBtn');
+                    
+                    // Show loading state
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = 'Sending...';
+                    formMessage.classList.add('hidden');
+                    
+                    try {
+                        // Submit to Formspree via fetch (AJAX - no page redirect)
+                        const response = await fetch('https://formspree.io/f/mlgkgwro', {
+                            method: 'POST',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                subject: subject,
+                                email: email,
+                                message: message
+                            })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (response.ok && data.ok) {
+                            // Success - show message and clear form
+                            formMessage.textContent = '✓ Message sent successfully! I\'ll get back to you soon.';
+                            formMessage.className = 'text-center mt-4 text-sm font-semibold text-green-600 block';
+                            contactForm.reset();
+                        } else {
+                            // Error from Formspree
+                            formMessage.textContent = '✗ Failed to send message. Please try again.';
+                            formMessage.className = 'text-center mt-4 text-sm font-semibold text-red-600 block';
+                        }
+                    } catch (error) {
+                        console.error('Form submission error:', error);
+                        formMessage.textContent = '✗ Error sending message. Please check your connection and try again.';
+                        formMessage.className = 'text-center mt-4 text-sm font-semibold text-red-600 block';
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Send Message ✉️';
+                        formMessage.classList.remove('hidden');
+                    }
+                }, false);
+            }
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="py-8 glass-dark">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-white font-semibold">
+                © 2025 Suyash Naresh Verma. Built with 💜 and lots of ☕
+            </p>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onclick="closeModal(event)">
+        <div class="glass rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+            <div id="modal-content" class="p-8"></div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const CONFIG = {
+            githubUsername: 'Suyash123456789',
+            emailTo: 'suyashverma61@gmail.com'
+        };
+
+        let allProjects = [];
+
+        // Create Floating Particles
+        function createParticles() {
+            const container = document.getElementById('particles-container');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 10 + 5 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animation = `particleFloat ${Math.random() * 3 + 2}s ease-in-out infinite`;
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Fetch Projects from GitHub
+        async function fetchProjects() {
+            try {
+                console.log('🔄 Fetching projects from GitHub...');
+                const response = await fetch(
+                    `https://api.github.com/users/${CONFIG.githubUsername}/repos?sort=updated&per_page=100`
+                );
+                
+                if (!response.ok) throw new Error(`GitHub API error: ${response.status}`);
+                
+                const data = await response.json();
+                allProjects = data.filter(r => !r.fork).sort((a, b) => b.stargazers_count - a.stargazers_count);
+                
+                console.log(`✅ Loaded ${allProjects.length} projects`);
+                
+                updateStats();
+                createTabs();
+                displayProjects(allProjects);
+                
+            } catch (error) {
+                console.error('❌ Error:', error);
+                document.getElementById('projects-grid').innerHTML = `
+                    <div class="col-span-full text-center py-12 glass rounded-2xl">
+                        <p class="text-xl font-bold mb-4">😔 Unable to load projects</p>
+                        <button onclick="fetchProjects()" class="px-6 py-3 gradient-bg text-white font-bold rounded-lg">
+                            🔄 Try Again
+                        </button>
+                    </div>
+                `;
+            }
+        }
+
+        // Update Statistics
+        function updateStats() {
+            const totalStars = allProjects.reduce((s, p) => s + p.stargazers_count, 0);
+            const languages = [...new Set(allProjects.map(p => p.language).filter(Boolean))];
+            
+            animateCounter('stat-projects', allProjects.length);
+            animateCounter('stat-stars', totalStars);
+            animateCounter('stat-langs', languages.length);
+            document.getElementById('total-projects').textContent = allProjects.length;
+        }
+
+        // Animate Counter
+        function animateCounter(id, target) {
+            const element = document.getElementById(id);
+            const duration = 1500;
+            const steps = 40;
+            const increment = target / steps;
+            let current = 0;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, duration / steps);
+        }
+
+        // Create Tabs
+        function createTabs() {
+            const languages = [...new Set(allProjects.map(p => p.language).filter(Boolean))];
+            const tabsContainer = document.getElementById('project-tabs');
+            
+            let html = `<button onclick="filterProjects('all')" class="px-6 py-3 gradient-bg text-white font-bold rounded-lg shadow-lg hover:scale-105 transition-all" data-filter="all">All (${allProjects.length})</button>`;
+            
+            languages.slice(0, 8).forEach(lang => {
+                const count = allProjects.filter(p => p.language === lang).length;
+                html += `<button onclick="filterProjects('${lang}')" class="px-6 py-3 glass font-bold rounded-lg shadow-lg hover:scale-105 transition-all" data-filter="${lang}">${lang} (${count})</button>`;
+            });
+            
+            tabsContainer.innerHTML = html;
+        }
+
+        // Filter Projects
+        function filterProjects(filter) {
+            const filtered = filter === 'all' ? allProjects : allProjects.filter(p => p.language === filter);
+            displayProjects(filtered);
+            
+            document.querySelectorAll('#project-tabs button').forEach(btn => {
+                if (btn.dataset.filter === filter) {
+                    btn.className = "px-6 py-3 gradient-bg text-white font-bold rounded-lg shadow-lg hover:scale-105 transition-all";
+                } else {
+                    btn.className = "px-6 py-3 glass font-bold rounded-lg shadow-lg hover:scale-105 transition-all";
+                }
+            });
+        }
+
+        // Display Projects
+        function displayProjects(projects) {
+            const grid = document.getElementById('projects-grid');
+            
+            if (projects.length === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center text-white py-12 glass rounded-2xl">No projects found.</div>';
+                return;
+            }
+            
+            grid.innerHTML = projects.map(project => `
+                <div class="glass rounded-2xl p-6 shadow-2xl gradient-hover cursor-pointer fade-in" onclick="showProjectModal(${project.id})">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="font-bold text-xl gradient-text">${project.name}</h3>
+                        ${project.language ? `<span class="px-3 py-1 gradient-bg text-white text-xs font-bold rounded-full">${project.language}</span>` : ''}
+                    </div>
+                    <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                        ${project.description || 'No description available'}
+                    </p>
+                    <div class="flex items-center gap-4 text-sm font-semibold text-gray-700">
+                        <span>⭐ ${project.stargazers_count}</span>
+                        <span>🔱 ${project.forks_count}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Show Project Modal
+        function showProjectModal(projectId) {
+            const project = allProjects.find(p => p.id === projectId);
+            if (!project) {
+                console.error('Project not found:', projectId);
+                return;
+            }
+            
+            console.log('Opening modal for project:', project.name, 'URL:', project.html_url);
+            
+            const modal = document.getElementById('project-modal');
+            const content = document.getElementById('modal-content');
+            
+            content.innerHTML = `
+                <div class="flex justify-between items-start mb-6">
+                    <h2 class="text-3xl font-black gradient-text">${project.name}</h2>
+                    <button onclick="closeModal()" class="p-2 hover:bg-gray-100 rounded-lg transition-all">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+                <p class="text-gray-600 mb-6 text-lg">${project.description || 'No description'}</p>
+                <div class="grid grid-cols-3 gap-4 mb-6">
+                    <div class="text-center p-4 gradient-bg text-white rounded-xl">
+                        <div class="text-3xl font-bold">⭐ ${project.stargazers_count}</div>
+                        <div class="text-sm mt-1">Stars</div>
+                    </div>
+                    <div class="text-center p-4 gradient-bg text-white rounded-xl">
+                        <div class="text-3xl font-bold">🔱 ${project.forks_count}</div>
+                        <div class="text-sm mt-1">Forks</div>
+                    </div>
+                    <div class="text-center p-4 gradient-bg text-white rounded-xl">
+                        <div class="text-3xl font-bold">${project.open_issues_count}</div>
+                        <div class="text-sm mt-1">Issues</div>
+                    </div>
+                </div>
+                ${project.topics && project.topics.length > 0 ? `
+                    <div class="mb-6">
+                        <h3 class="font-bold mb-3 text-lg">🏷️ Topics</h3>
+                        <div class="flex flex-wrap gap-2">
+                            ${project.topics.map(t => `<span class="skill-badge px-3 py-1 rounded-lg text-sm font-semibold">${t}</span>`).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+                <div class="flex gap-3">
+                    <button onclick="window.open('${project.html_url}', '_blank')" class="flex-1 px-6 py-3 gradient-bg text-white font-bold rounded-lg text-center hover:shadow-lg transition-all cursor-pointer">
+                        View on GitHub
+                    </button>
+                    ${project.homepage ? `
+                        <button onclick="window.open('${project.homepage}', '_blank')" class="flex-1 px-6 py-3 glass font-bold rounded-lg text-center hover:shadow-lg transition-all cursor-pointer">
+                            Live Demo
+                        </button>
+                    ` : ''}
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+
+        // Close Modal
+        function closeModal(event) {
+            if (!event || event.target.id === 'project-modal') {
+                document.getElementById('project-modal').classList.add('hidden');
+            }
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            fetchProjects();
+        });
+    </script>
+</body>
+</html>
