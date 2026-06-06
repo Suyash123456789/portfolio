@@ -9,13 +9,73 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
         
+        :root {
+            --lavender: #e9e0f5;
+            --lavender-light: #f5f0fc;
+            --lavender-deep: #d4c4ef;
+            --charcoal: #1a1a1a;
+            --charcoal-mid: #2d2d2d;
+        }
+
         * {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            box-sizing: border-box;
         }
+
+        img, video, svg { max-width: 100%; height: auto; }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-attachment: fixed;
+            background: var(--lavender-light);
+            color: #000;
+            min-height: 100vh;
+        }
+
+        html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+
+        main { position: relative; z-index: 10; }
+        section { position: relative; z-index: 10; color: #000; scroll-margin-top: 5rem; }
+        .on-dark, .glass-dark, .gradient-bg { color: #fff; }
+        .muted { color: #000; opacity: 0.75; }
+        .section-title { color: #fff; text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45); }
+        .section-subtitle { color: #fff; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35); }
+
+        .bg-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 70% 55% at 15% 25%, rgba(212, 196, 239, 0.7), transparent),
+                radial-gradient(ellipse 55% 45% at 85% 15%, rgba(233, 224, 245, 0.8), transparent),
+                radial-gradient(ellipse 50% 50% at 55% 85%, rgba(200, 181, 224, 0.5), transparent),
+                linear-gradient(160deg, #f5f0fc 0%, #e9e0f5 45%, #ddd6fe 100%);
+        }
+
+        .bg-mesh::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.4;
+            background-image: radial-gradient(rgba(26, 26, 26, 0.06) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        .bg-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(70px);
+            opacity: 0.55;
+            animation: drift 20s ease-in-out infinite;
+        }
+
+        .bg-blob-1 { width: 420px; height: 420px; background: #ddd6fe; top: -8%; left: -5%; }
+        .bg-blob-2 { width: 380px; height: 380px; background: #e9e0f5; top: 35%; right: -8%; animation-delay: -7s; }
+        .bg-blob-3 { width: 320px; height: 320px; background: #c4b5fd; bottom: 5%; left: 30%; animation-delay: -14s; }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -30px) scale(1.08); }
+            66% { transform: translate(-25px, 35px) scale(0.95); }
         }
         
         .glass {
@@ -25,20 +85,20 @@
         }
         
         .glass-dark {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--charcoal);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid var(--charcoal-mid);
+            color: #fff;
         }
         
         .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #000;
+            -webkit-text-fill-color: #000;
         }
         
         .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--charcoal);
+            color: #fff;
         }
         
         .gradient-hover {
@@ -47,7 +107,7 @@
         
         .gradient-hover:hover {
             transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 20px 40px rgba(26, 26, 26, 0.15);
         }
         
         .fade-in {
@@ -68,19 +128,6 @@
             50% { transform: translateY(-10px); }
         }
         
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            pointer-events: none;
-        }
-        
-        @keyframes particleFloat {
-            0% { transform: translateY(0) translateX(0); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(-100px) translateX(20px); opacity: 0; }
-        }
-        
         .typing-dot {
             animation: typing 1.4s infinite;
         }
@@ -94,20 +141,21 @@
         }
         
         .skill-badge {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-            border: 1px solid rgba(102, 126, 234, 0.3);
+            background: var(--lavender);
+            border: 1px solid var(--lavender-deep);
+            color: var(--charcoal);
             transition: all 0.3s ease;
         }
         
         .skill-badge:hover {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            background: var(--lavender-deep);
             transform: scale(1.05);
         }
         
         /* Section divider */
         .section-divider {
             height: 2px;
-            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
+            background: linear-gradient(90deg, transparent, var(--lavender-deep), transparent);
             margin: 3rem 0;
         }
         
@@ -141,7 +189,7 @@
 
         .greeting-text {
             display: inline;
-            border-right: 3px solid white;
+            border-right: 3px solid var(--charcoal);
             animation: typing 3s steps(6, end), blink 0.7s infinite;
             white-space: nowrap;
             overflow: hidden;
@@ -167,73 +215,179 @@
         }
 
         @keyframes blink {
-            0%, 50% { border-right-color: white; }
+            0%, 50% { border-right-color: var(--charcoal); }
             51%, 100% { border-right-color: transparent; }
+        }
+
+        /* CTA pointing cursor (hero) */
+        .cta-cursor {
+            --x: 0px;
+            --y: 0px;
+            --r: 0deg;
+            position: fixed;
+            left: -8px;
+            top: -6px;
+            pointer-events: none;
+            user-select: none;
+            display: none;
+            z-index: 9999;
+            transform: translate(var(--x), var(--y));
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+        }
+
+        .cta-cursor svg {
+            display: block;
+            width: 28px;
+            height: 28px;
+            transform: rotate(var(--r));
+            transition: transform 0.1s ease-out;
+        }
+
+        #home.cta-cursor-active,
+        #home.cta-cursor-active a,
+        #home.cta-cursor-active button {
+            cursor: none;
+        }
+
+        @media (hover: none), (pointer: coarse) {
+            .cta-cursor {
+                display: none !important;
+            }
+        }
+
+        .proj-btn { padding: 0.6rem 1.25rem; border-radius: 0.5rem; font-weight: 700; transition: all 0.2s; }
+        .proj-btn-on { background: var(--charcoal); color: #fff !important; box-shadow: 0 4px 14px rgba(26, 26, 26, 0.25); }
+        .proj-btn-off { background: #fff; color: var(--charcoal) !important; border: 2px solid var(--charcoal); }
+        .proj-btn-off:hover { background: var(--lavender); }
+        #projects-pagination { color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,0.4); }
+        #projects-pagination .text-black { color: #fff !important; }
+        .proj-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+        .container { width: 100%; margin-inline: auto; padding-inline: 1rem; }
+        @media (min-width: 768px) { .container { padding-inline: 1.5rem; } }
+
+        #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        #mobile-menu.open { max-height: 24rem; }
+        #menu-btn { display: flex; }
+        @media (min-width: 1024px) {
+            #menu-btn, #mobile-menu { display: none !important; }
+            .desktop-nav { display: flex !important; }
+        }
+        @media (max-width: 1023px) { .desktop-nav { display: none !important; } }
+
+        #project-tabs { overflow-x: auto; flex-wrap: nowrap; justify-content: flex-start; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
+        #project-tabs .proj-btn { flex-shrink: 0; white-space: nowrap; }
+
+        @media (max-width: 640px) {
+            html { scroll-padding-top: 4.5rem; }
+            section { scroll-margin-top: 4.5rem; padding-block: 3rem; }
+            .bg-blob-1 { width: 220px; height: 220px; }
+            .bg-blob-2 { width: 200px; height: 200px; }
+            .bg-blob-3 { width: 180px; height: 180px; }
+            .greeting-text { display: block; max-width: 100%; white-space: normal; border-right: none; animation: none; }
+            .hero-stat { flex: 1 1 100%; min-width: 0; }
+            .hero-cta { width: 100%; text-align: center; }
+            .proj-btn { padding: 0.55rem 0.9rem; font-size: 0.875rem; }
+            .glass-card { padding: 1.25rem !important; }
+            .contact-card { padding: 1.5rem !important; }
+            #projects-pagination .flex { gap: 0.35rem; }
+        }
+
+        @media (min-width: 641px) and (max-width: 1023px) {
+            section { padding-block: 4rem; }
+            .hero-stat { flex: 1 1 calc(50% - 1rem); }
+        }
+
+        @media (max-width: 1023px) {
+            .header-inner { flex-wrap: wrap; gap: 0.5rem; min-height: 4rem; height: auto; padding-block: 0.75rem; }
         }
     </style>
     <script src="https://cdn.emailjs.com/sdk/2.12.0/email.min.js"></script>
 </head>
-<body class="text-gray-900 antialiased relative overflow-x-hidden">
-    <!-- Floating Particles Background -->
-    <div id="particles-container" class="fixed inset-0 pointer-events-none z-0"></div>
+<body class="antialiased relative overflow-x-hidden">
+    <!-- CTA Pointing Cursor -->
+    <div class="cta-cursor" id="cta-cursor" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 28" aria-hidden="true">
+            <polygon fill="#1a1a1a" points="8.2,20.9 8.2,4.9 19.8,16.5 13,16.5 12.6,16.6"/>
+            <polygon fill="#1a1a1a" points="17.3,21.6 13.7,23.1 9,12 12.7,10.5"/>
+            <rect x="12.5" y="13.6" transform="matrix(0.9221 -0.3871 0.3871 0.9221 -5.7605 6.5909)" width="2" height="8" fill="#1a1a1a"/>
+            <polygon fill="#1a1a1a" points="9.2,7.3 9.2,18.5 12.2,15.6 12.6,15.5 17.4,15.5"/>
+        </svg>
+    </div>
+
+    <div class="bg-mesh" aria-hidden="true">
+        <div class="bg-blob bg-blob-1"></div>
+        <div class="bg-blob bg-blob-2"></div>
+        <div class="bg-blob bg-blob-3"></div>
+    </div>
 
     <!-- Header -->
     <header class="sticky top-0 z-50 glass shadow-lg">
-        <div class="container mx-auto flex h-16 items-center px-4 max-w-7xl justify-between">
-            <div class="flex items-center">
-                <a class="flex items-center space-x-2 gradient-text" href="#home">
-                    <span class="font-bold text-lg">SV</span>
-                </a>
-            </div>
-            <nav class="hidden md:flex items-center space-x-6">
-                <a class="font-medium text-gray-700 hover:text-purple-600 transition-colors text-sm" href="#about">About</a>
-                <a class="font-medium text-gray-700 hover:text-purple-600 transition-colors text-sm" href="#experience">Experience</a>
-                <a class="font-medium text-gray-700 hover:text-purple-600 transition-colors text-sm" href="#projects">Projects</a>
-                <a class="font-medium text-gray-700 hover:text-purple-600 transition-colors text-sm" href="#skills">Skills</a>
-                <a class="font-medium text-gray-700 hover:text-purple-600 transition-colors text-sm" href="#contact">Contact</a>
+        <div class="container max-w-7xl header-inner flex items-center justify-between">
+            <a class="flex items-center gradient-text shrink-0" href="#home">
+                <span class="font-bold text-lg">SV</span>
+            </a>
+            <nav class="desktop-nav items-center gap-4 xl:gap-6">
+                <a class="font-medium text-black hover:opacity-70 text-sm" href="#about">About</a>
+                <a class="font-medium text-black hover:opacity-70 text-sm" href="#experience">Experience</a>
+                <a class="font-medium text-black hover:opacity-70 text-sm" href="#projects">Projects</a>
+                <a class="font-medium text-black hover:opacity-70 text-sm" href="#skills">Skills</a>
+                <a class="font-medium text-black hover:opacity-70 text-sm" href="#contact">Contact</a>
             </nav>
-            <div class="flex items-center gap-3">
-                <a href="https://github.com/Suyash123456789" target="_blank" class="px-4 py-2 text-sm rounded-lg glass-dark text-white hover:bg-white/20 transition-all">
-                    GitHub
-                </a>
+            <div class="flex items-center gap-2 sm:gap-3">
+                <a href="https://github.com/Suyash123456789" target="_blank" class="hidden sm:inline-flex px-3 sm:px-4 py-2 text-sm rounded-lg glass-dark hover:opacity-90">GitHub</a>
+                <button id="menu-btn" type="button" class="lg:hidden flex items-center justify-center w-10 h-10 rounded-lg border-2 border-black text-black" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                </button>
             </div>
         </div>
+        <nav id="mobile-menu" class="lg:hidden container max-w-7xl border-t border-violet-200/60" aria-label="Mobile">
+            <div class="flex flex-col gap-1 py-3">
+                <a class="nav-mobile-link px-3 py-2.5 rounded-lg text-black font-medium hover:bg-violet-100" href="#about">About</a>
+                <a class="nav-mobile-link px-3 py-2.5 rounded-lg text-black font-medium hover:bg-violet-100" href="#experience">Experience</a>
+                <a class="nav-mobile-link px-3 py-2.5 rounded-lg text-black font-medium hover:bg-violet-100" href="#projects">Projects</a>
+                <a class="nav-mobile-link px-3 py-2.5 rounded-lg text-black font-medium hover:bg-violet-100" href="#skills">Skills</a>
+                <a class="nav-mobile-link px-3 py-2.5 rounded-lg text-black font-medium hover:bg-violet-100" href="#contact">Contact</a>
+                <a href="https://github.com/Suyash123456789" target="_blank" class="sm:hidden px-3 py-2.5 rounded-lg glass-dark text-center text-sm font-semibold">GitHub</a>
+            </div>
+        </nav>
     </header>
 
+    <main>
     <!-- Hero Section -->
-    <section id="home" class="relative py-20 md:py-32 overflow-hidden">
-        <div class="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
-            <div class="flex flex-col items-center space-y-6 text-center">
-                <div class="inline-block px-4 py-2 rounded-full glass-dark text-white text-sm font-semibold mb-4 float">
+    <section id="home" class="relative py-12 sm:py-20 lg:py-32 overflow-hidden">
+        <div class="container max-w-7xl relative z-10">
+            <div class="flex flex-col items-center space-y-4 sm:space-y-6 text-center">
+                <div class="inline-block px-3 sm:px-4 py-2 rounded-full glass-dark text-xs sm:text-sm font-semibold mb-2 sm:mb-4 float">
                     ✨ Software Engineer & AI Developer
                 </div>
-                <h1 class="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4">
+                <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-black mb-2 sm:mb-4 px-2">
                     Hi, I'm <span class="greeting-text"><span class="letter">S</span><span class="letter">u</span><span class="letter">y</span><span class="letter">a</span><span class="letter">s</span><span class="letter">h</span></span>
                 </h1>
-                <p class="text-xl md:text-2xl text-white/90 max-w-3xl leading-relaxed">
+                <p class="text-base sm:text-xl md:text-2xl muted max-w-3xl leading-relaxed px-2">
                     Software Engineer focused on building scalable web, backend, cloud, and AI-powered systems using LLMs, MLOps, APIs, and production-ready deployment workflows.
                 </p>
                 
-                <div class="flex flex-wrap justify-center gap-6 mt-12">
-                    <div class="glass px-8 py-6 rounded-2xl shadow-2xl gradient-hover">
+                <div class="flex flex-wrap justify-center gap-4 sm:gap-6 mt-8 sm:mt-12 w-full max-w-lg sm:max-w-none px-2">
+                    <div class="hero-stat glass px-6 sm:px-8 py-5 sm:py-6 rounded-2xl shadow-2xl gradient-hover">
                         <div class="text-4xl font-black gradient-text" id="stat-projects">0</div>
-                        <div class="text-sm font-semibold text-gray-600 mt-1">📁 Projects</div>
+                        <div class="text-sm font-semibold muted mt-1">📁 Projects</div>
                     </div>
-                    <div class="glass px-8 py-6 rounded-2xl shadow-2xl gradient-hover">
+                    <div class="hero-stat glass px-6 sm:px-8 py-5 sm:py-6 rounded-2xl shadow-2xl gradient-hover">
                         <div class="text-4xl font-black gradient-text" id="stat-stars">0</div>
-                        <div class="text-sm font-semibold text-gray-600 mt-1">⭐ Stars</div>
+                        <div class="text-sm font-semibold muted mt-1">⭐ Stars</div>
                     </div>
-                    <div class="glass px-8 py-6 rounded-2xl shadow-2xl gradient-hover">
+                    <div class="hero-stat glass px-6 sm:px-8 py-5 sm:py-6 rounded-2xl shadow-2xl gradient-hover">
                         <div class="text-4xl font-black gradient-text" id="stat-langs">0</div>
-                        <div class="text-sm font-semibold text-gray-600 mt-1">💻 Languages</div>
+                        <div class="text-sm font-semibold muted mt-1">💻 Languages</div>
                     </div>
                 </div>
                 
-                <div class="flex flex-wrap gap-4 mt-12">
-                    <a href="#projects" class="px-8 py-4 gradient-bg text-white font-bold rounded-xl shadow-2xl hover:shadow-purple-500/50 hover:scale-105 transition-all">
+                <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 mt-8 sm:mt-12 relative w-full max-w-md sm:max-w-none px-4 sm:px-0" id="hero-cta-group">
+                    <a href="#projects" id="hero-cta" class="hero-cta px-6 sm:px-8 py-3.5 sm:py-4 gradient-bg text-white font-bold rounded-xl shadow-2xl hover:shadow-gray-900/20 hover:scale-105 transition-all">
                         🚀 Explore Projects
                     </a>
-                    <a href="#contact" class="px-8 py-4 glass font-bold rounded-xl shadow-2xl hover:scale-105 transition-all">
+                    <a href="#contact" class="hero-cta px-6 sm:px-8 py-3.5 sm:py-4 glass font-bold rounded-xl shadow-2xl hover:scale-105 transition-all">
                         💬 Get in Touch
                     </a>
                 </div>
@@ -242,48 +396,48 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-24 relative">
-        <div class="container mx-auto px-4 md:px-6 max-w-7xl">
-            <h2 class="text-5xl md:text-6xl font-black text-center text-white mb-8">
+    <section id="about" class="py-12 sm:py-16 lg:py-24 relative">
+        <div class="container max-w-7xl">
+            <h2 class="section-title text-3xl sm:text-5xl md:text-6xl font-black text-center mb-6 sm:mb-8 px-2">
                 About Me
             </h2>
-            <p class="text-lg text-white/90 text-center max-w-3xl mx-auto mb-16 leading-relaxed">
+            <p class="section-subtitle text-lg text-center max-w-3xl mx-auto mb-16 leading-relaxed">
                 Passionate software engineer with expertise in building intelligent systems that make a difference
             </p>
             
             <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover fade-in">
-                    <h3 class="text-2xl font-bold gradient-text mb-6 flex items-center gap-3">
-                        <span class="text-3xl">🎓</span> Education
+                <div class="glass glass-card rounded-2xl p-6 sm:p-8 shadow-2xl gradient-hover fade-in">
+                    <h3 class="text-xl sm:text-2xl font-bold gradient-text mb-4 sm:mb-6 flex items-center gap-3">
+                        <span class="text-2xl sm:text-3xl">🎓</span> Education
                     </h3>
                     <div class="space-y-6">
-                        <div class="border-l-4 border-purple-500 pl-4">
+                        <div class="border-l-4 border-gray-800 pl-4">
                             <p class="font-bold text-lg">Arizona State University</p>
-                            <p class="text-gray-600">MS, Data Science, Analytics & Engineering</p>
-                            <p class="text-sm text-purple-600 font-semibold mt-1">Aug 2024 - May 2026</p>
+                            <p class="muted">MS, Data Science, Analytics & Engineering</p>
+                            <p class="text-sm text-black font-semibold mt-1">Aug 2024 - May 2026</p>
                         </div>
-                        <div class="border-l-4 border-purple-400 pl-4">
+                        <div class="border-l-4 border-gray-600 pl-4">
                             <p class="font-bold text-lg">University of Mumbai</p>
-                            <p class="text-gray-600">B.E., Information Technology</p>
-                            <p class="text-sm text-purple-600 font-semibold mt-1">Aug 2020 - Jun 2024</p>
+                            <p class="muted">B.E., Information Technology</p>
+                            <p class="text-sm text-black font-semibold mt-1">Aug 2020 - Jun 2024</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover fade-in">
-                    <h3 class="text-2xl font-bold gradient-text mb-6 flex items-center gap-3">
-                        <span class="text-3xl">📧</span> Contact Info
+                <div class="glass glass-card rounded-2xl p-6 sm:p-8 shadow-2xl gradient-hover fade-in">
+                    <h3 class="text-xl sm:text-2xl font-bold gradient-text mb-4 sm:mb-6 flex items-center gap-3">
+                        <span class="text-2xl sm:text-3xl">📧</span> Contact Info
                     </h3>
                     <div class="space-y-4">
-                        <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-purple-50 transition-all">
+                        <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-violet-100 transition-all">
                             <span class="text-2xl">✉️</span>
-                            <a href="mailto:suyashverma61@gmail.com" class="hover:text-purple-600 font-medium">suyashverma61@gmail.com</a>
+                            <a href="mailto:suyashverma61@gmail.com" class="hover:text-black font-medium break-all">suyashverma61@gmail.com</a>
                         </div>
-                        <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-purple-50 transition-all">
+                        <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-violet-100 transition-all">
                             <span class="text-2xl">📱</span>
                             <span class="font-medium">+1-623-272-5289</span>
                         </div>
-                        <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-purple-50 transition-all">
+                        <div class="flex items-center gap-3 p-3 rounded-lg hover:bg-violet-100 transition-all">
                             <span class="text-2xl">📍</span>
                             <span class="font-medium">Tempe, AZ, USA</span>
                         </div>
@@ -302,53 +456,53 @@
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="py-24">
-        <div class="container mx-auto px-4 md:px-6 max-w-7xl">
-            <h2 class="text-5xl md:text-6xl font-black text-center text-white mb-16">
+    <section id="experience" class="py-12 sm:py-16 lg:py-24">
+        <div class="container max-w-7xl">
+            <h2 class="section-title text-3xl sm:text-5xl md:text-6xl font-black text-center mb-8 sm:mb-16 px-2">
                 Experience
             </h2>
             
             <div class="max-w-4xl mx-auto space-y-8">
-                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover fade-in">
-                    <div class="mb-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Software Developer Intern</h3>
-                        <p class="text-xl font-semibold text-purple-600 mb-2">EasyBee AI, INC.</p>
-                        <p class="text-lg font-semibold text-purple-600">Jun 2025 – Aug 2025</p>
+                <div class="glass glass-card rounded-2xl p-6 sm:p-8 shadow-2xl gradient-hover fade-in">
+                    <div class="mb-4 sm:mb-6">
+                        <h3 class="text-xl sm:text-2xl font-bold text-black mb-2">Software Developer Intern</h3>
+                        <p class="text-xl font-semibold text-black mb-2">EasyBee AI, INC.</p>
+                        <p class="text-lg font-semibold text-black">Jun 2025 – Aug 2025</p>
                     </div>
                     <ul class="space-y-3">
                         <li class="flex gap-3 items-start">
                             <span class="text-2xl">🚀</span>
-                            <span class="text-gray-900">Reduced AI agent response latency by <strong>50%</strong> by implementing semantic caching and optimizing vector retrieval workflows.</span>
+                            <span class="text-black">Reduced AI agent response latency by <strong>50%</strong> by implementing semantic caching and optimizing vector retrieval workflows.</span>
                         </li>
                         <li class="flex gap-3 items-start">
                             <span class="text-2xl">💻</span>
-                            <span class="text-gray-900">Built a self-serve <strong>Admin Dashboard</strong> using <strong>React, TypeScript, and REST APIs</strong>, enabling knowledge-base management without engineering support.</span>
+                            <span class="text-black">Built a self-serve <strong>Admin Dashboard</strong> using <strong>React, TypeScript, and REST APIs</strong>, enabling knowledge-base management without engineering support.</span>
                         </li>
                         <li class="flex gap-3 items-start">
                             <span class="text-2xl">📊</span>
-                            <span class="text-gray-900">Integrated structured logging, analytics, and performance monitoring, reducing customer support load by <strong>40%</strong>.</span>
+                            <span class="text-black">Integrated structured logging, analytics, and performance monitoring, reducing customer support load by <strong>40%</strong>.</span>
                         </li>
                     </ul>
                 </div>
                 
-                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover fade-in">
-                    <div class="mb-6">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-2">Software Engineer Intern</h3>
-                        <p class="text-xl font-semibold text-purple-600 mb-2">CloudPlay Solutions</p>
-                        <p class="text-lg font-semibold text-purple-600">Oct 2023 – Mar 2024</p>
+                <div class="glass glass-card rounded-2xl p-6 sm:p-8 shadow-2xl gradient-hover fade-in">
+                    <div class="mb-4 sm:mb-6">
+                        <h3 class="text-xl sm:text-2xl font-bold text-black mb-2">Software Engineer Intern</h3>
+                        <p class="text-xl font-semibold text-black mb-2">CloudPlay Solutions</p>
+                        <p class="text-lg font-semibold text-black">Oct 2023 – Mar 2024</p>
                     </div>
                     <ul class="space-y-3">
                         <li class="flex gap-3 items-start">
                             <span class="text-2xl">🤖</span>
-                            <span class="text-gray-900">Developed a RAG-based customer support chatbot that automated <strong>80%</strong> of real-time customer inquiries.</span>
+                            <span class="text-black">Developed a RAG-based customer support chatbot that automated <strong>80%</strong> of real-time customer inquiries.</span>
                         </li>
                         <li class="flex gap-3 items-start">
                             <span class="text-2xl">📈</span>
-                            <span class="text-gray-900">Built an LLM-powered reporting system using persisted datasets, reducing manual reporting workload by <strong>50%</strong>.</span>
+                            <span class="text-black">Built an LLM-powered reporting system using persisted datasets, reducing manual reporting workload by <strong>50%</strong>.</span>
                         </li>
                         <li class="flex gap-3 items-start">
                             <span class="text-2xl">🔍</span>
-                            <span class="text-gray-900">Improved backend reliability by adding health checks, deterministic service startup, and rollback-safe deployment workflows.</span>
+                            <span class="text-black">Improved backend reliability by adding health checks, deterministic service startup, and rollback-safe deployment workflows.</span>
                         </li>
                     </ul>
                 </div>
@@ -357,36 +511,38 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-24">
-        <div class="container mx-auto px-4 md:px-6 max-w-7xl">
-            <h2 class="text-5xl md:text-6xl font-black text-center text-white mb-6">
+    <section id="projects" class="py-12 sm:py-16 lg:py-24">
+        <div class="container max-w-7xl">
+            <h2 class="section-title text-3xl sm:text-5xl md:text-6xl font-black text-center mb-4 sm:mb-6 px-2">
                 Projects
             </h2>
-            <p class="text-xl text-white/90 text-center mb-12">
-                Explore <span id="total-projects" class="font-bold gradient-text bg-white px-3 py-1 rounded-lg">0</span> projects from GitHub
+            <p class="section-subtitle text-base sm:text-xl text-center mb-8 sm:mb-12 px-4">
+                Explore <span id="total-projects" class="font-black text-2xl align-middle">0</span> projects from GitHub
             </p>
             
-            <div class="flex flex-wrap gap-3 justify-center mb-12" id="project-tabs"></div>
+            <div class="flex gap-2 sm:gap-3 mb-8 sm:mb-12 px-1" id="project-tabs"></div>
             
-            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3" id="projects-grid">
+            <div class="grid gap-4 sm:gap-6 lg:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" id="projects-grid">
                 <div class="col-span-full flex flex-col items-center justify-center py-12">
-                    <div class="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mb-4"></div>
-                    <p class="text-white text-lg font-semibold">Loading awesome projects from GitHub...</p>
+                    <div class="w-16 h-16 border-4 border-gray-800 border-t-transparent rounded-full animate-spin mb-4"></div>
+                    <p class="text-black text-lg font-semibold">Loading awesome projects from GitHub...</p>
                 </div>
             </div>
+
+            <div id="projects-pagination" class="hidden relative z-10 mt-12 flex flex-col items-center gap-4"></div>
         </div>
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-24">
-        <div class="container mx-auto px-4 md:px-6 max-w-7xl">
-            <h2 class="text-5xl md:text-6xl font-black text-center text-white mb-6">
+    <section id="skills" class="py-12 sm:py-16 lg:py-24">
+        <div class="container max-w-7xl">
+            <h2 class="section-title text-3xl sm:text-5xl md:text-6xl font-black text-center mb-4 sm:mb-6 px-2">
                 Skills
             </h2>
             
-            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
-                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover">
-                    <h3 class="text-2xl font-bold gradient-text mb-4 flex items-center gap-2">
+            <div class="grid gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
+                <div class="glass glass-card rounded-2xl p-6 sm:p-8 shadow-2xl gradient-hover">
+                    <h3 class="text-xl sm:text-2xl font-bold gradient-text mb-3 sm:mb-4 flex items-center gap-2">
                         <span>🤖</span> AI & ML
                     </h3>
                     <div class="flex flex-wrap gap-2">
@@ -401,8 +557,8 @@
                     </div>
                 </div>
                 
-                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover">
-                    <h3 class="text-2xl font-bold gradient-text mb-4 flex items-center gap-2">
+                <div class="glass glass-card rounded-2xl p-6 sm:p-8 shadow-2xl gradient-hover">
+                    <h3 class="text-xl sm:text-2xl font-bold gradient-text mb-3 sm:mb-4 flex items-center gap-2">
                         <span>💾</span> Databases
                     </h3>
                     <div class="flex flex-wrap gap-2">
@@ -414,8 +570,8 @@
                     </div>
                 </div>
                 
-                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover">
-                    <h3 class="text-2xl font-bold gradient-text mb-4 flex items-center gap-2">
+                <div class="glass glass-card rounded-2xl p-6 sm:p-8 shadow-2xl gradient-hover">
+                    <h3 class="text-xl sm:text-2xl font-bold gradient-text mb-3 sm:mb-4 flex items-center gap-2">
                         <span>☁️</span> Cloud & DevOps
                     </h3>
                     <div class="flex flex-wrap gap-2">
@@ -428,8 +584,8 @@
                     </div>
                 </div>
                 
-                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover">
-                    <h3 class="text-2xl font-bold gradient-text mb-4 flex items-center gap-2">
+                <div class="glass glass-card rounded-2xl p-6 sm:p-8 shadow-2xl gradient-hover">
+                    <h3 class="text-xl sm:text-2xl font-bold gradient-text mb-3 sm:mb-4 flex items-center gap-2">
                         <span>💻</span> Programming
                     </h3>
                     <div class="flex flex-wrap gap-2">
@@ -441,8 +597,8 @@
                     </div>
                 </div>
                 
-                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover">
-                    <h3 class="text-2xl font-bold gradient-text mb-4 flex items-center gap-2">
+                <div class="glass glass-card rounded-2xl p-6 sm:p-8 shadow-2xl gradient-hover">
+                    <h3 class="text-xl sm:text-2xl font-bold gradient-text mb-3 sm:mb-4 flex items-center gap-2">
                         <span>📊</span> Visualization
                     </h3>
                     <div class="flex flex-wrap gap-2">
@@ -451,8 +607,8 @@
                     </div>
                 </div>
                 
-                <div class="glass rounded-2xl p-8 shadow-2xl gradient-hover">
-                    <h3 class="text-2xl font-bold gradient-text mb-4 flex items-center gap-2">
+                <div class="glass glass-card rounded-2xl p-6 sm:p-8 shadow-2xl gradient-hover">
+                    <h3 class="text-xl sm:text-2xl font-bold gradient-text mb-3 sm:mb-4 flex items-center gap-2">
                         <span>📚</span> Libraries
                     </h3>
                     <div class="flex flex-wrap gap-2">
@@ -468,51 +624,51 @@
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="py-24">
-        <div class="container mx-auto px-4 md:px-6 max-w-7xl">
-            <h2 class="text-5xl md:text-6xl font-black text-center text-white mb-6">
+    <section id="contact" class="py-12 sm:py-16 lg:py-24">
+        <div class="container max-w-7xl">
+            <h2 class="section-title text-3xl sm:text-5xl md:text-6xl font-black text-center mb-4 sm:mb-6 px-2">
                 Contact
             </h2>
-            <p class="text-xl text-white/90 text-center mb-12 max-w-2xl mx-auto">
+            <p class="section-subtitle text-base sm:text-xl text-center mb-8 sm:mb-12 max-w-2xl mx-auto px-4">
                 Interested in collaborating or discussing AI/ML opportunities? Feel free to reach out!
             </p>
             
-            <div class="max-w-2xl mx-auto glass rounded-2xl p-12 shadow-2xl">
+            <div class="max-w-2xl mx-auto glass contact-card rounded-2xl p-6 sm:p-10 lg:p-12 shadow-2xl">
                 <!-- Contact Form with Formspree (No Redirect) -->
                 <form id="contactForm" class="mb-12">
                     <div class="mb-6">
-                        <label for="subject" class="block text-gray-800 font-bold mb-3">Subject</label>
+                        <label for="subject" class="block text-black font-bold mb-3">Subject</label>
                         <input 
                             type="text" 
                             id="subject" 
                             name="subject" 
                             required
                             placeholder="What is this about?"
-                            class="w-full px-4 py-3 border-2 border-purple-300 rounded-lg focus:outline-none focus:border-purple-600 text-gray-800"
+                            class="w-full px-4 py-3 border-2 border-violet-200 rounded-lg focus:outline-none focus:border-gray-800 text-black"
                         >
                     </div>
                     
                     <div class="mb-6">
-                        <label for="email" class="block text-gray-800 font-bold mb-3">Your Email</label>
+                        <label for="email" class="block text-black font-bold mb-3">Your Email</label>
                         <input 
                             type="email" 
                             id="email" 
                             name="email" 
                             required
                             placeholder="your@email.com"
-                            class="w-full px-4 py-3 border-2 border-purple-300 rounded-lg focus:outline-none focus:border-purple-600 text-gray-800"
+                            class="w-full px-4 py-3 border-2 border-violet-200 rounded-lg focus:outline-none focus:border-gray-800 text-black"
                         >
                     </div>
                     
                     <div class="mb-8">
-                        <label for="message" class="block text-gray-800 font-bold mb-3">Message</label>
+                        <label for="message" class="block text-black font-bold mb-3">Message</label>
                         <textarea 
                             id="message" 
                             name="message" 
                             required
                             placeholder="Your message here..."
                             rows="5"
-                            class="w-full px-4 py-3 border-2 border-purple-300 rounded-lg focus:outline-none focus:border-purple-600 text-gray-800 resize-none"
+                            class="w-full px-4 py-3 border-2 border-violet-200 rounded-lg focus:outline-none focus:border-gray-800 text-black resize-none"
                         ></textarea>
                     </div>
                     
@@ -527,61 +683,32 @@
                 </form>
 
                 <div class="border-t border-gray-200 pt-8">
-                    <p class="text-center text-gray-700 mb-8 font-bold text-lg">Or reach out directly:</p>
-                    <div class="flex flex-wrap gap-6 justify-center mb-8">
-                        <a href="https://www.linkedin.com/in/suyashverma17/" target="_blank" class="px-8 py-4 gradient-bg text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all flex items-center gap-2">
+                    <p class="text-center muted mb-8 font-bold text-lg">Or reach out directly:</p>
+                    <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-6 justify-center mb-8">
+                        <a href="https://www.linkedin.com/in/suyashverma17/" target="_blank" class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 gradient-bg text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all flex items-center justify-center gap-2">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                             LinkedIn
                         </a>
-                        <a href="https://github.com/Suyash123456789" target="_blank" class="px-8 py-4 gradient-bg text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all flex items-center gap-2">
+                        <a href="https://github.com/Suyash123456789" target="_blank" class="w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 gradient-bg text-white font-bold rounded-xl hover:shadow-lg hover:scale-105 transition-all flex items-center justify-center gap-2">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                             GitHub
                         </a>
                     </div>
                     
                     <div class="grid md:grid-cols-2 gap-6 text-center">
-                        <div class="p-4 bg-purple-50 rounded-xl">
-                            <p class="text-sm font-bold text-gray-700 mb-1">📧 Email</p>
-                            <a href="mailto:suyashverma61@gmail.com" class="text-purple-600 font-semibold hover:underline">suyashverma61@gmail.com</a>
+                        <div class="p-4 bg-violet-50 rounded-xl">
+                            <p class="text-sm font-bold muted mb-1">📧 Email</p>
+                            <a href="mailto:suyashverma61@gmail.com" class="text-black font-semibold hover:underline">suyashverma61@gmail.com</a>
                         </div>
-                        <div class="p-4 bg-purple-50 rounded-xl">
-                            <p class="text-sm font-bold text-gray-700 mb-1">📱 Phone</p>
-                            <p class="text-purple-600 font-semibold">+1-623-272-5289</p>
+                        <div class="p-4 bg-violet-50 rounded-xl">
+                            <p class="text-sm font-bold muted mb-1">📱 Phone</p>
+                            <p class="text-black font-semibold">+1-623-272-5289</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <script>
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const subject = document.getElementById('subject').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-            const formMessage = document.getElementById('formMessage');
-            const submitSpinner = document.getElementById('submitSpinner');
-            const submitBtn = this.querySelector('button[type="submit"]');
-            
-            // Disable button during submission
-            submitBtn.disabled = true;
-            submitSpinner.classList.remove('hidden');
-            
-            const templateParams = {
-                title: subject,
-                name: email,
-                message: message,
-                email: email
-            };
-            
-            console.log('Sending email with params:', templateParams);
-            console.log('Service ID:', 'service_c04ftcr');
-            console.log('Template ID:', 'template_d7vrqey');
-        });
-            
-    </script>
 
     <!-- Contact Form Handler (No Redirect) -->
     <script>
@@ -646,8 +773,10 @@
         });
     </script>
 
+    </main>
+
     <!-- Footer -->
-    <footer class="py-8 glass-dark">
+    <footer class="relative z-10 py-8 glass-dark">
         <div class="container mx-auto px-4 text-center">
             <p class="text-white font-semibold">
                 © 2025 Suyash Naresh Verma. Built with 💜 and lots of ☕
@@ -656,9 +785,9 @@
     </footer>
 
     <!-- Project Modal -->
-    <div id="project-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4" onclick="closeModal(event)">
-        <div class="glass rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
-            <div id="modal-content" class="p-8"></div>
+    <div id="project-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4" onclick="closeModal(event)">
+        <div class="glass rounded-t-2xl sm:rounded-2xl shadow-2xl max-w-2xl w-full max-h-[92vh] sm:max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+            <div id="modal-content" class="p-5 sm:p-8"></div>
         </div>
     </div>
 
@@ -670,22 +799,9 @@
         };
 
         let allProjects = [];
-
-        // Create Floating Particles
-        function createParticles() {
-            const container = document.getElementById('particles-container');
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.width = Math.random() * 10 + 5 + 'px';
-                particle.style.height = particle.style.width;
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animation = `particleFloat ${Math.random() * 3 + 2}s ease-in-out infinite`;
-                particle.style.animationDelay = Math.random() * 5 + 's';
-                container.appendChild(particle);
-            }
-        }
+        let currentFilter = 'all';
+        let currentPage = 1;
+        const PROJECTS_PER_PAGE = 9;
 
         // Fetch Projects from GitHub
         async function fetchProjects() {
@@ -704,7 +820,9 @@
                 
                 updateStats();
                 createTabs();
-                displayProjects(allProjects);
+                currentFilter = 'all';
+                currentPage = 1;
+                renderProjects();
                 
             } catch (error) {
                 console.error('❌ Error:', error);
@@ -754,11 +872,10 @@
             const languages = [...new Set(allProjects.map(p => p.language).filter(Boolean))];
             const tabsContainer = document.getElementById('project-tabs');
             
-            let html = `<button onclick="filterProjects('all')" class="px-6 py-3 gradient-bg text-white font-bold rounded-lg shadow-lg hover:scale-105 transition-all" data-filter="all">All (${allProjects.length})</button>`;
-            
+            let html = `<button onclick="filterProjects('all')" class="proj-btn proj-btn-on" data-filter="all">All (${allProjects.length})</button>`;
             languages.slice(0, 8).forEach(lang => {
                 const count = allProjects.filter(p => p.language === lang).length;
-                html += `<button onclick="filterProjects('${lang}')" class="px-6 py-3 glass font-bold rounded-lg shadow-lg hover:scale-105 transition-all" data-filter="${lang}">${lang} (${count})</button>`;
+                html += `<button onclick="filterProjects('${lang}')" class="proj-btn proj-btn-off" data-filter="${lang}">${lang} (${count})</button>`;
             });
             
             tabsContainer.innerHTML = html;
@@ -766,42 +883,89 @@
 
         // Filter Projects
         function filterProjects(filter) {
-            const filtered = filter === 'all' ? allProjects : allProjects.filter(p => p.language === filter);
-            displayProjects(filtered);
-            
+            currentFilter = filter;
+            currentPage = 1;
+            renderProjects();
+
             document.querySelectorAll('#project-tabs button').forEach(btn => {
-                if (btn.dataset.filter === filter) {
-                    btn.className = "px-6 py-3 gradient-bg text-white font-bold rounded-lg shadow-lg hover:scale-105 transition-all";
-                } else {
-                    btn.className = "px-6 py-3 glass font-bold rounded-lg shadow-lg hover:scale-105 transition-all";
-                }
+                btn.className = 'proj-btn ' + (btn.dataset.filter === filter ? 'proj-btn-on' : 'proj-btn-off');
             });
         }
 
-        // Display Projects
-        function displayProjects(projects) {
+        function getFilteredProjects() {
+            return currentFilter === 'all'
+                ? allProjects
+                : allProjects.filter(p => p.language === currentFilter);
+        }
+
+        function goToPage(page) {
+            const totalPages = Math.ceil(getFilteredProjects().length / PROJECTS_PER_PAGE) || 1;
+            currentPage = Math.max(1, Math.min(page, totalPages));
+            renderProjects();
+            const header = document.querySelector('header');
+            const offset = header ? header.offsetHeight + 8 : 80;
+            const top = document.getElementById('projects').getBoundingClientRect().top + window.scrollY - offset;
+            window.scrollTo({ top, behavior: 'smooth' });
+        }
+
+        function renderProjects() {
+            const filtered = getFilteredProjects();
+            const totalPages = Math.ceil(filtered.length / PROJECTS_PER_PAGE) || 1;
+
+            if (currentPage > totalPages) currentPage = totalPages;
+
+            const start = (currentPage - 1) * PROJECTS_PER_PAGE;
+            const pageProjects = filtered.slice(start, start + PROJECTS_PER_PAGE);
+
+            displayProjectCards(pageProjects, filtered.length);
+            renderPagination(filtered.length, totalPages);
+        }
+
+        function displayProjectCards(projects, totalFiltered) {
             const grid = document.getElementById('projects-grid');
-            
-            if (projects.length === 0) {
-                grid.innerHTML = '<div class="col-span-full text-center text-white py-12 glass rounded-2xl">No projects found.</div>';
+
+            if (totalFiltered === 0) {
+                grid.innerHTML = '<div class="col-span-full text-center text-black py-12 glass rounded-2xl">No projects found.</div>';
                 return;
             }
-            
+
             grid.innerHTML = projects.map(project => `
-                <div class="glass rounded-2xl p-6 shadow-2xl gradient-hover cursor-pointer fade-in" onclick="showProjectModal(${project.id})">
-                    <div class="flex justify-between items-start mb-4">
-                        <h3 class="font-bold text-xl gradient-text">${project.name}</h3>
+                <div class="glass glass-card rounded-2xl p-4 sm:p-6 shadow-2xl gradient-hover cursor-pointer fade-in" onclick="showProjectModal(${project.id})">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 mb-3 sm:mb-4">
+                        <h3 class="font-bold text-lg sm:text-xl gradient-text break-words">${project.name}</h3>
                         ${project.language ? `<span class="px-3 py-1 gradient-bg text-white text-xs font-bold rounded-full">${project.language}</span>` : ''}
                     </div>
-                    <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                    <p class="muted text-sm mb-4 line-clamp-2">
                         ${project.description || 'No description available'}
                     </p>
-                    <div class="flex items-center gap-4 text-sm font-semibold text-gray-700">
+                    <div class="flex items-center gap-4 text-sm font-semibold muted">
                         <span>⭐ ${project.stargazers_count}</span>
                         <span>🔱 ${project.forks_count}</span>
                     </div>
                 </div>
             `).join('');
+        }
+
+        function renderPagination(totalItems, totalPages) {
+            const container = document.getElementById('projects-pagination');
+            if (!container || totalItems === 0) return;
+
+            container.classList.remove('hidden');
+            const start = (currentPage - 1) * PROJECTS_PER_PAGE + 1;
+            const end = Math.min(currentPage * PROJECTS_PER_PAGE, totalItems);
+            let nav = '';
+            if (totalPages > 1) {
+                let pages = '';
+                for (let p = 1; p <= totalPages; p++) {
+                    pages += `<button onclick="goToPage(${p})" class="proj-btn min-w-[2.5rem] ${p === currentPage ? 'proj-btn-on' : 'proj-btn-off'}" ${p === currentPage ? 'aria-current="page"' : ''}>${p}</button>`;
+                }
+                nav = `<div class="flex flex-wrap items-center justify-center gap-2">
+                    <button onclick="goToPage(${currentPage - 1})" class="proj-btn proj-btn-off" ${currentPage === 1 ? 'disabled' : ''}>← Prev</button>
+                    ${pages}
+                    <button onclick="goToPage(${currentPage + 1})" class="proj-btn proj-btn-off" ${currentPage === totalPages ? 'disabled' : ''}>Next →</button>
+                </div>`;
+            }
+            container.innerHTML = `<p class="text-sm font-semibold">Showing <span class="font-bold">${start}–${end}</span> of <span class="font-bold">${totalItems}</span> projects</p>${nav}`;
         }
 
         // Show Project Modal
@@ -824,8 +988,8 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                     </button>
                 </div>
-                <p class="text-gray-600 mb-6 text-lg">${project.description || 'No description'}</p>
-                <div class="grid grid-cols-3 gap-4 mb-6">
+                <p class="muted mb-6 text-lg">${project.description || 'No description'}</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
                     <div class="text-center p-4 gradient-bg text-white rounded-xl">
                         <div class="text-3xl font-bold">⭐ ${project.stargazers_count}</div>
                         <div class="text-sm mt-1">Stars</div>
@@ -869,21 +1033,100 @@
             }
         }
 
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const btn = document.getElementById('menu-btn');
+            if (menu) menu.classList.remove('open');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+        }
+
+        function initMobileMenu() {
+            const btn = document.getElementById('menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            if (!btn || !menu) return;
+            btn.addEventListener('click', () => {
+                const open = menu.classList.toggle('open');
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
             });
-        });
+            document.querySelectorAll('.nav-mobile-link').forEach(link => {
+                link.addEventListener('click', closeMobileMenu);
+            });
+        }
+
+        function initNavScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (!href || href === '#') return;
+                    const target = document.querySelector(href);
+                    if (!target) return;
+                    e.preventDefault();
+                    closeMobileMenu();
+                    const header = document.querySelector('header');
+                    const offset = header ? header.offsetHeight + 8 : 80;
+                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                    history.pushState(null, '', href);
+                });
+            });
+        }
+
+        // CTA pointing cursor — arrow rotates to always point at the hero CTA
+        function initCtaPointingCursor() {
+            const prefersFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+            if (!prefersFinePointer) return;
+
+            const hero = document.getElementById('home');
+            const cta = document.getElementById('hero-cta');
+            const cursor = document.getElementById('cta-cursor');
+            if (!hero || !cta || !cursor) return;
+
+            function isInsideHero(x, y) {
+                const rect = hero.getBoundingClientRect();
+                return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+            }
+
+            function calculateRotate(mouseX, mouseY) {
+                const target = cta.getBoundingClientRect();
+                const targetCenter = {
+                    x: target.left + target.width / 2,
+                    y: target.top + target.height / 2
+                };
+                const radians = Math.atan2(targetCenter.x - mouseX, targetCenter.y - mouseY);
+                return (radians * (180 / Math.PI) * -1) + 180 + 20;
+            }
+
+            function showCursor() {
+                cursor.style.display = 'block';
+                hero.classList.add('cta-cursor-active');
+            }
+
+            function hideCursor() {
+                cursor.style.display = 'none';
+                hero.classList.remove('cta-cursor-active');
+            }
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isInsideHero(e.clientX, e.clientY)) {
+                    hideCursor();
+                    return;
+                }
+
+                showCursor();
+                cursor.style.setProperty('--x', e.clientX + 'px');
+                cursor.style.setProperty('--y', e.clientY + 'px');
+                cursor.style.setProperty('--r', calculateRotate(e.clientX, e.clientY) + 'deg');
+            });
+
+            hero.addEventListener('mouseleave', hideCursor);
+        }
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
+            initMobileMenu();
+            initNavScroll();
             fetchProjects();
+            initCtaPointingCursor();
         });
     </script>
 </body>
