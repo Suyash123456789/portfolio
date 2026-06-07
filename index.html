@@ -48,7 +48,7 @@
 
         main > section.stack-cover-section {
             position: sticky;
-            top: 0;
+            top: var(--stack-cover-top, 0px);
         }
 
         main > section:nth-of-type(2n) {
@@ -58,7 +58,7 @@
                 linear-gradient(155deg, #eee7fb 0%, #f8f5ff 45%, #e4ddf7 100%);
         }
 
-        html { scroll-snap-type: y proximity; }
+        html { scroll-snap-type: none; }
         .on-dark, .glass-dark, .gradient-bg { color: #fff; }
         .muted { color: #000; opacity: 0.75; }
         .section-title { color: #fff; text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45); }
@@ -1255,9 +1255,14 @@
 
         function updateStackCoverSections() {
             const sections = document.querySelectorAll('main > section');
+            const viewportHeight = window.visualViewport
+                ? window.visualViewport.height
+                : (window.innerHeight || document.documentElement.clientHeight);
 
             sections.forEach((section, index) => {
                 section.style.zIndex = String(10 + index);
+                const stickyTop = Math.min(0, viewportHeight - section.scrollHeight);
+                section.style.setProperty('--stack-cover-top', `${stickyTop}px`);
                 section.classList.add('stack-cover-section');
             });
         }
@@ -1315,6 +1320,7 @@
             });
 
             applyBlurReveal();
+            requestAnimationFrame(updateStackCoverSections);
         }
 
         // Sitewide custom cursor — arrow follows and rotates with mouse movement
