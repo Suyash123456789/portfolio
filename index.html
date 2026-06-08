@@ -1243,6 +1243,14 @@
             const button = document.getElementById('location-map-button');
             if (!panel || !map) return;
 
+            const isOpen = !panel.classList.contains('hidden');
+            if (isOpen) {
+                panel.classList.add('hidden');
+                if (button) button.setAttribute('aria-expanded', 'false');
+                requestAnimationFrame(updateStackCoverSections);
+                return;
+            }
+
             if (!map.src) {
                 map.src = map.dataset.src;
             }
